@@ -50,10 +50,11 @@ if [[ "${FEATURE_TYPE}" != "kin" ]]; then
     exit 1
 fi
 
+# --data-test "${DATADIR}/test_file.parquet" \
+
 weaver \
     --data-train "${DATADIR}/train_file.parquet" \
     --data-val "${DATADIR}/val_file.parquet" \
-    --data-test "${DATADIR}/test_file.parquet" \
     --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
     --model-prefix training/TopLandscape/${model}/{auto}${suffix}/net \
     --num-workers 1 --fetch-step 1 --in-memory \
