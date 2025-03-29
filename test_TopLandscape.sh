@@ -52,7 +52,7 @@ fi
 
 weaver \
     --predict \
-    --data-test "${DATADIR}/train_file.parquet" \
+    --data-test "${DATADIR}/val_file.parquet" \
     --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
     --model-prefix trained_models/patT_93975.pt \
     --num-workers 1 --fetch-step 1 --in-memory \
