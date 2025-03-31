@@ -32,10 +32,10 @@ def get_model(data_config, **kwargs):
         embed_dims=[64, 256, 64],  # [128, 512, 128]
         pair_embed_dims=[32, 32, 32],  # [64, 64, 64],
         num_heads=8,
-        num_layers=4,
+        num_layers=2,
         num_cls_layers=2,
-        block_params={'dropout': 0.4, 'attn_dropout': 0.4, 'activation_dropout': 0.4},
-        cls_block_params={'dropout': 0.3, 'attn_dropout': 0.3, 'activation_dropout': 0.3},
+        block_params={'dropout': 0.1, 'attn_dropout': 0.1, 'activation_dropout': 0.1},
+        cls_block_params={'dropout': 0, 'attn_dropout': 0, 'activation_dropout': 0},
         fc_params=[],
         activation='gelu',
         # misc
