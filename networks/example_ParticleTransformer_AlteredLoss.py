@@ -58,7 +58,7 @@ def get_model(data_config, **kwargs):
     return model, model_info
 
 
-def focal_loss(inputs, targets, alpha=1.0, gamma=2.0, reduction='mean'):
+def focal_loss(inputs, targets, alpha=1.0, gamma=10, reduction='mean'):
     targets = targets.view(-1, 1)
 
     log_probs = F.log_softmax(inputs, dim=1)
