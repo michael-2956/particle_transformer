@@ -35,7 +35,7 @@ def get_model(data_config, **kwargs):
         num_layers=4,
         num_cls_layers=2,
         block_params={'dropout': 0.4, 'attn_dropout': 0.4, 'activation_dropout': 0.4},
-        cls_block_params={'dropout': 0.2, 'attn_dropout': 0.2, 'activation_dropout': 0.2},
+        cls_block_params={'dropout': 0.3, 'attn_dropout': 0.3, 'activation_dropout': 0.3},
         fc_params=[],
         activation='gelu',
         # misc
