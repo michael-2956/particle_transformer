@@ -29,10 +29,10 @@ def get_model(data_config, **kwargs):
         # network configurations
         pair_input_dim=4,
         use_pre_activation_pair=False,
-        embed_dims=[64, 256, 64],  # [128, 512, 128]
+        embed_dims=[32, 128, 32],  # [128, 512, 128]
         pair_embed_dims=[32, 32, 32],  # [64, 64, 64],
         num_heads=8,
-        num_layers=2,
+        num_layers=6,
         num_cls_layers=2,
         block_params={'dropout': 0.1, 'attn_dropout': 0.1, 'activation_dropout': 0.1},
         cls_block_params={'dropout': 0, 'attn_dropout': 0, 'activation_dropout': 0},
