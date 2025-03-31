@@ -59,6 +59,7 @@ fi
 # --data-test "${DATADIR}/test_file.parquet" \
 
 weaver \
+    --load-model-weights trained_models/patT_93975.pt \
     --data-train "${DATADIR}/train_file.parquet" \
     --data-val "${DATADIR}/val_file.parquet" \
     --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
