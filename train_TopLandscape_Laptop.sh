@@ -21,9 +21,12 @@ if [[ "$model" == "ParT" ]]; then
 elif [[ "$model" == "ParT-Small" ]]; then
     modelopts="networks/example_ParticleTransformerSmall.py --optimizer-option weight_decay 0.01"
     lr="1e-3"
-elif [[ "$model" == "ParT-FocalLoss" ]]; then
+elif [[ "$model" == "ParT-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformer_AlteredLoss.py --optimizer-option weight_decay 0.01"
     lr="1e-4"
+elif [[ "$model" == "ParT-Small-AlteredLoss" ]]; then
+    modelopts="networks/example_ParticleTransformerSmall_AlteredLoss.py --optimizer-option weight_decay 0.01"
+    lr="1e-3"
 elif [[ "$model" == "ParT-FineTune" ]]; then
     modelopts="networks/example_ParticleTransformer_finetune.py --optimizer-option weight_decay 0.01"
     lr="1e-4"
@@ -60,7 +63,6 @@ fi
 
 weaver \
     --no-mps \
-    --load-model-weights trained_models/patT_93975.pt \
     --data-train "${DATADIR}/train_file.parquet" \
     --data-val "${DATADIR}/val_file.parquet" \
     --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
