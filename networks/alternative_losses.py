@@ -68,9 +68,7 @@ def nooutlier_cross_entropy_loss(inputs, targets, threshold=NO_OUTLIER_CE_THR, r
     valid_mask = p_t >= threshold
     # ensure at least 90% of the data is above threshold
     while valid_mask.float().mean().cpu().item() < 0.9:
-        print(f"{valid_mask.float().mean().cpu().item():.0f} {threshold:.2f}", end='     \r')
-        threshold /= 2
-        valid_mask = p_t >= threshold
+        valid_mask = p_t >= 0
 
     filtered_loss = loss[valid_mask]
     
