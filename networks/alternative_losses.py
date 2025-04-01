@@ -54,7 +54,7 @@ def get_loss_inverse_focal(data_config, **kwargs):
     return inverse_focal_loss
 
 
-NO_OUTLIER_CE_THR = 0.3
+NO_OUTLIER_CE_THR = 0.745
 
 def nooutlier_cross_entropy_loss(inputs, targets, threshold=NO_OUTLIER_CE_THR, reduction='mean'):
     targets = targets.view(-1, 1)
