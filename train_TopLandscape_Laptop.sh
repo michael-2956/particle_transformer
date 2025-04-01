@@ -63,6 +63,7 @@ fi
 # --no-mps \
 
 weaver \
+    --no-mps \
     --load-model-weights trained_models/parT_small_fulldata_2eps.pt \
     --data-train "${DATADIR}/train_file.parquet" \
     --data-val "${DATADIR}/val_file.parquet" \
