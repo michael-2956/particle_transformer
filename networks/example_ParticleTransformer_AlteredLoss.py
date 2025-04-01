@@ -79,4 +79,5 @@ def focal_loss(inputs, targets, alpha=1.0, gamma=2, reduction='mean'):
 
 
 def get_loss(data_config, **kwargs):
+    print(f"Focal loss Gamma: {2}")
     return focal_loss # torch.nn.CrossEntropyLoss()
