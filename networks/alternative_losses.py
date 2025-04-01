@@ -70,7 +70,9 @@ def nooutlier_cross_entropy_loss(inputs, targets, threshold=NO_OUTLIER_CE_THR, r
     
     # If no samples meet the threshold, return 0
     if filtered_loss.numel() == 0:
-        return torch.tensor(0., device=inputs.device)
+        return nooutlier_cross_entropy_loss(
+            inputs, targets, threshold=threshold/2, reduction=reduction
+        )
     
     if reduction == 'mean':
         return filtered_loss.mean()
