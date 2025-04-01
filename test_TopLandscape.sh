@@ -52,9 +52,9 @@ fi
 
 weaver \
     --predict \
-    --data-test "${DATADIR}/val_file.parquet" \
+    --data-test "${DATADIR}/train_file.parquet" \
     --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
-    --model-prefix trained_models/patT_93975.pt \
+    --model-prefix trained_models/parT_small_val7884.pt \
     --num-workers 1 --fetch-step 1 --in-memory \
     --batch-size 512 --predict-gpus 0 --gpus 0 \
     --log logs/TopLandscape_${model}_{auto}${suffix}.log \
