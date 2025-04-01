@@ -60,9 +60,10 @@ if [[ "${FEATURE_TYPE}" != "kin" ]]; then
 fi
 
 # --data-test "${DATADIR}/test_file.parquet" \
+# --load-model-weights trained_models/patT_93975.pt \
+# --load-model-weights trained_models/parT_small_val7884.pt \
 
 weaver \
-    --load-model-weights trained_models/parT_small_val7884.pt \
     --data-train "${DATADIR}/train_file.parquet" \
     --data-val "${DATADIR}/val_file.parquet" \
     --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
