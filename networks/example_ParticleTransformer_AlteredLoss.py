@@ -57,8 +57,8 @@ def get_model(data_config, **kwargs):
 
     return model, model_info
 
-
-def focal_loss(inputs, targets, alpha=1.0, gamma=2, reduction='mean'):
+FOCAL_LOSS_GAMMA = 2
+def focal_loss(inputs, targets, alpha=1.0, gamma=FOCAL_LOSS_GAMMA, reduction='mean'):
     targets = targets.view(-1, 1)
 
     log_probs = F.log_softmax(inputs, dim=1)
@@ -79,5 +79,5 @@ def focal_loss(inputs, targets, alpha=1.0, gamma=2, reduction='mean'):
 
 
 def get_loss(data_config, **kwargs):
-    print(f"Focal loss Gamma: {2}")
+    print(f"Focal loss Gamma: {FOCAL_LOSS_GAMMA}")
     return focal_loss # torch.nn.CrossEntropyLoss()
