@@ -1,3 +1,7 @@
+runs
+top_tagging_dataset
+trained_models
+
 .DS_Store
 
 # Byte-compiled / optimized / DLL files
