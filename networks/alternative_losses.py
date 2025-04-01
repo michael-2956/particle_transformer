@@ -66,12 +66,15 @@ def nooutlier_cross_entropy_loss(inputs, targets, threshold=NO_OUTLIER_CE_THR, r
     loss = -log_probs.gather(1, targets).view(-1)
 
     valid_mask = p_t >= threshold
+    while valid_mask.mean().cpu().item() < 0.9:
+        threshold /= 2
+        valid_mask = p_t >= threshold
     filtered_loss = loss[valid_mask]
     
     # If no samples meet the threshold, return 0
     if filtered_loss.numel() == 0:
         return nooutlier_cross_entropy_loss(
-            inputs, targets, threshold=threshold/2, reduction=reduction
+            inputs, targets, threshold=0, reduction=reduction
         )
     
     if reduction == 'mean':
