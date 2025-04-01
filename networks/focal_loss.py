@@ -51,5 +51,5 @@ def inverse_focal_loss(inputs, targets, alpha=1.0, gamma=FOCAL_LOSS_GAMMA, reduc
 
 def get_loss_inverse_focal(data_config, **kwargs):
     print(f"Inverse focal loss Gamma: {FOCAL_LOSS_GAMMA}")
-    return focal_loss
+    return inverse_focal_loss
 
