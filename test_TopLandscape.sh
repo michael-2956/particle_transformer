@@ -63,7 +63,7 @@ for part in train val test; do
         --predict \
         --data-test "${DATADIR}/${part}_file.parquet" \
         --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml \
-        --network-config "$modelopts" \
+        --network-config $modelopts \
         --model-prefix trained_models/part_small_misclass_it2.pt \
         --num-workers 1 \
         --fetch-step 1 \
