@@ -64,7 +64,7 @@ fi
 # --load-model-weights trained_models/parT_small_val7884.pt \
 
 weaver \
-    --load-model-weights trained_models/parT_small_fulldata_2eps.pt \
+    --use-xla \
     --data-train "${DATADIR}/train_file.parquet" \
     --data-val "${DATADIR}/val_file.parquet" \
     --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
