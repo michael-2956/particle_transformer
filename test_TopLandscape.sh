@@ -56,14 +56,23 @@ if [[ "${FEATURE_TYPE}" != "kin" ]]; then
     exit 1
 fi
 
-weaver \
-    --predict \
-    --data-test "${DATADIR}/test_file.parquet" \
-    --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
-    --model-prefix trained_models/parT_small_val7884.pt \
-    --num-workers 1 --fetch-step 1 --in-memory \
-    --batch-size 512 --predict-gpus 0 --gpus 0 \
-    --log logs/TopLandscape_${model}_{auto}${suffix}.log \
-    --predict-output pred.root \
-    --tensorboard TopLandscape_${FEATURE_TYPE}_${model}${suffix} \
-    ${extraopts} "${@:3}"
+# evaluate on all 3 subsets
+for part in train val test; do
+    echo "Processing ${part} data..."
+    weaver \
+        --predict \
+        --data-test "${DATADIR}/${part}_file.parquet" \
+        --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml \
+        --network-config "$modelopts" \
+        --model-prefix trained_models/part_small_misclass_it2.pt \
+        --num-workers 1 \
+        --fetch-step 1 \
+        --in-memory \
+        --batch-size 512 \
+        --predict-gpus 0 \
+        --gpus 0 \
+        --log logs/TopLandscape_${model}_{auto}${suffix}.log \
+        --predict-output preds_${part}_kaggle.root \
+        --tensorboard TopLandscape_${FEATURE_TYPE}_${model}${suffix} \
+        ${extraopts} "${@:3}"
+done
