@@ -1,6 +1,7 @@
 runs
 top_tagging_dataset
 trained_models
+training
 
 .DS_Store
 

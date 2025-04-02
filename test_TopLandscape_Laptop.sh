@@ -63,14 +63,14 @@ fi
 # --no-mps \
 
 weaver \
+    --predict \
+    --data-test "${DATADIR}/train_file.parquet" \
     --no-mps \
-    --load-model-weights trained_models/parT_small_val7884.pt \
-    --data-train "${DATADIR}/train_file.parquet" \
-    --data-val "${DATADIR}/val_file.parquet" \
     --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
-    --model-prefix training/TopLandscape/${model}/{auto}${suffix}/net \
+    --model-prefix trained_models/parT_small_val7884.pt \
     --num-workers 1 --fetch-step 1 --in-memory \
-    --batch-size 128 --samples-per-epoch $((2400 * 512)) --samples-per-epoch-val $((800 * 512)) --num-epochs 20 --gpus "" \
-    --start-lr $lr --optimizer ranger --log logs/TopLandscape_${model}_{auto}${suffix}.log --predict-output pred.root \
+    --batch-size 128 --predict-gpus "" --gpus "" \
+    --log logs/TopLandscape_${model}_{auto}${suffix}.log \
+    --predict-output pred.root \
     --tensorboard TopLandscape_${FEATURE_TYPE}_${model}${suffix} \
     ${extraopts} "${@:3}"
