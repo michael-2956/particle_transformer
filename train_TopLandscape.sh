@@ -16,19 +16,19 @@ suffix=${COMMENT}
 model=$1
 extraopts=""
 if [[ "$model" == "ParT" ]]; then
-    modelopts="networks/example_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
+    modelopts="networks/example_ParticleTransformer.py --optimizer-option weight_decay 0.01" # 
     lr="1e-3"
 elif [[ "$model" == "ParT-Small" ]]; then
-    modelopts="networks/example_ParticleTransformerSmall.py --use-amp --optimizer-option weight_decay 0.01"
+    modelopts="networks/example_ParticleTransformerSmall.py --optimizer-option weight_decay 0.01" # 
     lr="1e-3"
 elif [[ "$model" == "ParT-AlteredLoss" ]]; then
-    modelopts="networks/example_ParticleTransformer_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
+    modelopts="networks/example_ParticleTransformer_AlteredLoss.py --optimizer-option weight_decay 0.01" # 
     lr="1e-4"
 elif [[ "$model" == "ParT-Small-AlteredLoss" ]]; then
-    modelopts="networks/example_ParticleTransformerSmall_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
+    modelopts="networks/example_ParticleTransformerSmall_AlteredLoss.py --optimizer-option weight_decay 0.01" # 
     lr="1e-3"
 elif [[ "$model" == "ParT-FineTune" ]]; then
-    modelopts="networks/example_ParticleTransformer_finetune.py --use-amp --optimizer-option weight_decay 0.01"
+    modelopts="networks/example_ParticleTransformer_finetune.py --optimizer-option weight_decay 0.01" # 
     lr="1e-4"
     extraopts="--optimizer-option lr_mult (\"fc.*\",50) --lr-scheduler none --load-model-weights models/ParT_kin.pt"
 elif [[ "$model" == "PN" ]]; then
