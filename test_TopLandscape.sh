@@ -72,7 +72,7 @@ for part in train val test; do
         --predict-gpus 0 \
         --gpus 0 \
         --log logs/TopLandscape_${model}_{auto}${suffix}.log \
-        --predict-output preds_${part}_kaggle.root \
+        --predict-output pred_${part}_kaggle.root \
         --tensorboard TopLandscape_${FEATURE_TYPE}_${model}${suffix} \
         ${extraopts} "${@:3}"
 done
