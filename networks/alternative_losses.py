@@ -1,55 +1,65 @@
 import torch
 import torch.nn.functional as F
 
-FOCAL_LOSS_GAMMA = 2
+FOCAL_LOSS_ALPHA = 0.92579  # for mirror tagging on iteration 7 splitter
+FOCAL_LOSS_GAMMA = 2.0
 
-def focal_loss(inputs, targets, alpha=1.0, gamma=FOCAL_LOSS_GAMMA, reduction='mean'):
-    targets = targets.view(-1, 1)
+def focal_loss(inputs, targets, alpha=FOCAL_LOSS_ALPHA, gamma=FOCAL_LOSS_GAMMA, reduction='mean'):
+    targets = targets.view(-1, 1).long()
 
     log_probs = F.log_softmax(inputs, dim=1)
     log_p_t = log_probs.gather(1, targets).view(-1)
-    
-    probs = torch.exp(log_probs)
+
+    probs = log_probs.exp()
     # gathers probabilities of true class according to target
     p_t = probs.gather(1, targets).view(-1)
 
-    loss = -alpha * (1 - p_t) ** gamma * log_p_t
+    # Build alpha_t so that alpha applies to label=1, (1-alpha) applies to label=0
+    alpha_t = alpha * (targets.squeeze() == 1).float() + (1 - alpha) * (targets.squeeze() == 0).float()
+
+    focal_factor = (1 - p_t) ** gamma
+    loss = -alpha_t * focal_factor * log_p_t
 
     if reduction == 'mean':
-        loss = loss.mean()
+        return loss.mean()
     elif reduction == 'sum':
-        loss = loss.sum()
+        return loss.sum()
     
     return loss
 
 
 def get_loss_focal(data_config, **kwargs):
+    print(f"Focal loss Alpha: {FOCAL_LOSS_ALPHA}")
     print(f"Focal loss Gamma: {FOCAL_LOSS_GAMMA}")
     return focal_loss
 
 
-def inverse_focal_loss(inputs, targets, alpha=1.0, gamma=FOCAL_LOSS_GAMMA, reduction='mean'):
-    targets = targets.view(-1, 1)
+def inverse_focal_loss(inputs, targets, alpha=FOCAL_LOSS_ALPHA, gamma=FOCAL_LOSS_GAMMA, reduction='mean'):
+    targets = targets.view(-1, 1).long()
 
     log_probs = F.log_softmax(inputs, dim=1)
     log_p_t = log_probs.gather(1, targets).view(-1)
-    
-    probs = torch.exp(log_probs)
+
+    probs = log_probs.exp()
     # gathers probabilities of true class according to target
     p_t = probs.gather(1, targets).view(-1)
 
-    # change here
-    loss = -alpha * p_t ** gamma * log_p_t
+    # Build alpha_t so that alpha applies to label=1, (1-alpha) applies to label=0
+    alpha_t = alpha * (targets.squeeze() == 1).float() + (1 - alpha) * (targets.squeeze() == 0).float()
+
+    inverse_focal_factor = p_t ** gamma
+    loss = -alpha_t * inverse_focal_factor * log_p_t
 
     if reduction == 'mean':
-        loss = loss.mean()
+        return loss.mean()
     elif reduction == 'sum':
-        loss = loss.sum()
+        return loss.sum()
     
     return loss
 
 
 def get_loss_inverse_focal(data_config, **kwargs):
+    print(f"Inverse focal loss Alpha: {FOCAL_LOSS_ALPHA}")
     print(f"Inverse focal loss Gamma: {FOCAL_LOSS_GAMMA}")
     return inverse_focal_loss
 
