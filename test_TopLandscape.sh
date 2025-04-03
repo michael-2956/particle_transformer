@@ -56,6 +56,8 @@ if [[ "${FEATURE_TYPE}" != "kin" ]]; then
     exit 1
 fi
 
+# --model-prefix trained_models/part_small_it6_2eps.pt
+
 # evaluate on all 3 subsets
 for part in train val test; do
     echo "Processing ${part} data..."
@@ -64,7 +66,6 @@ for part in train val test; do
         --data-test "${DATADIR}/${part}_file.parquet" \
         --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml \
         --network-config $modelopts \
-        --model-prefix trained_models/part_small_it6_2eps.pt \
         --num-workers 1 \
         --fetch-step 1 \
         --in-memory \
