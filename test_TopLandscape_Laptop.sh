@@ -62,15 +62,18 @@ fi
 # --data-test "${DATADIR}/test_file.parquet" \
 # --no-mps \
 
-weaver \
-    --predict \
-    --data-test "${DATADIR}/train_file.parquet" \
-    --no-mps \
-    --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
-    --model-prefix trained_models/local_small_on_ds_with_partmistakes_inverted_7eps.pt \
-    --num-workers 1 --fetch-step 1 --in-memory \
-    --batch-size 128 --predict-gpus "" --gpus "" \
-    --log logs/TopLandscape_${model}_{auto}${suffix}.log \
-    --predict-output pred_train_local_cpu.root \
-    --tensorboard TopLandscape_${FEATURE_TYPE}_${model}${suffix} \
-    ${extraopts} "${@:3}"
+for part in train val test; do
+    echo "Processing ${part} data..."
+    weaver \
+        --predict \
+        --data-test "${DATADIR}/${part}_file.parquet" \
+        --no-mps \
+        --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
+        --model-prefix trained_models/local_small_on_ds_with_partmistakes_inverted_7eps.pt \
+        --num-workers 1 --fetch-step 1 --in-memory \
+        --batch-size 128 --predict-gpus "" --gpus "" \
+        --log logs/TopLandscape_${model}_{auto}${suffix}.log \
+        --predict-output pred_${part}_local_cpu.root \
+        --tensorboard TopLandscape_${FEATURE_TYPE}_${model}${suffix} \
+        ${extraopts} "${@:3}"
+done
