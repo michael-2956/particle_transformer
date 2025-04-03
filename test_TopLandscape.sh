@@ -57,7 +57,7 @@ if [[ "${FEATURE_TYPE}" != "kin" ]]; then
 fi
 
 # (!) PASS THIS OPTION IN KAGGLE:
-# --model-prefix trained_models/part_small_it6_2eps.pt
+# --model-prefix trained_models/model.pt
 
 # evaluate on all 3 subsets
 for part in train val test; do
