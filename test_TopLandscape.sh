@@ -24,6 +24,9 @@ elif [[ "$model" == "ParT-Long" ]]; then
 elif [[ "$model" == "ParT-Wide" ]]; then
     modelopts="networks/example_ParticleTransformerWide.py --use-amp --optimizer-option weight_decay 0.01"
     lr="1e-3"
+elif [[ "$model" == "ParT-Big" ]]; then
+    modelopts="networks/example_ParticleTransformerBig.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="1e-3"
 elif [[ "$model" == "ParT-Small" ]]; then
     modelopts="networks/example_ParticleTransformerSmall.py --use-amp --optimizer-option weight_decay 0.01"
     lr="1e-3"
@@ -34,6 +37,9 @@ elif [[ "$model" == "ParT-Long-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformerLong_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
     lr="1e-3"
 elif [[ "$model" == "ParT-Wide-AlteredLoss" ]]; then
+    modelopts="networks/example_ParticleTransformerLong_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="1e-3"
+elif [[ "$model" == "ParT-Big-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformerLong_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
     lr="1e-3"
 elif [[ "$model" == "ParT-Small-AlteredLoss" ]]; then
