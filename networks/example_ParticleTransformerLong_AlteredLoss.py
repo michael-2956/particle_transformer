@@ -11,7 +11,7 @@ def get_model(data_config, **kwargs):
 
 def get_loss(data_config, **kwargs):
     # Use at least 0.745 threshold
-    return get_loss_nooutlier_cross_entropy(data_config, **kwargs)
+    # return get_loss_nooutlier_cross_entropy(data_config, **kwargs)
     # return torch.nn.CrossEntropyLoss()
-    # return get_loss_focal(data_config, **kwargs)
+    return get_loss_focal(data_config, **kwargs)
     # return get_loss_inverse_focal(data_config, **kwargs)
