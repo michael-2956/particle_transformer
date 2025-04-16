@@ -1,7 +1,7 @@
 import torch
 import torch.nn.functional as F
 
-FOCAL_LOSS_ALPHA = 1 - 0.92579  # for mirror tagging on iteration 7 splitter
+FOCAL_LOSS_ALPHA = 1 - 0.8999250634313618  # for mirror tagging on tagging_of_unconfident_lt09_of_mtag_parT_83508_20eps_on_it8_4eps_last_cptrue
 FOCAL_LOSS_GAMMA = 2.0
 
 def focal_loss(inputs, targets, alpha=FOCAL_LOSS_ALPHA, gamma=FOCAL_LOSS_GAMMA, reduction='mean'):
