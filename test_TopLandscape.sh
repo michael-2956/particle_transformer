@@ -75,8 +75,8 @@ fi
 # "kin"
 FEATURE_TYPE=$2
 [[ -z ${FEATURE_TYPE} ]] && FEATURE_TYPE="kin"
-if [[ "${FEATURE_TYPE}" != "kin" ]]; then
-    echo "Invalid feature type ${FEATURE_TYPE}!"
+if [[ "${FEATURE_TYPE}" != "kin" && "${FEATURE_TYPE}" != "kin_aug" ]]; then
+    echo "Invalid feature type ${FEATURE_TYPE}!  Allowed: kin | kin_aug"
     exit 1
 fi
 
