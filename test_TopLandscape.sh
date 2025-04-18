@@ -96,7 +96,7 @@ for part in train val test; do
         --in-memory \
         --batch-size 512 \
         --predict-gpus 0 \
-        --gpus 0 \
+        --gpus 0,1 \
         --log logs/TopLandscape_${model}_{auto}${suffix}.log \
         --predict-output pred_${part}_kaggle.root \
         --tensorboard TopLandscape_${FEATURE_TYPE}_${model}${suffix} \
