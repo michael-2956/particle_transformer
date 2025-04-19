@@ -34,7 +34,7 @@ elif [[ "$model" == "ParT-Small" ]]; then
     modelopts="networks/example_ParticleTransformerSmall.py --use-amp --optimizer-option weight_decay 0.01"
     lr="1e-3"
 elif [[ "$model" == "ParT-Tiny" ]]; then
-    modelopts="networks/example_ParticleTransformerTiny.py --use-amp --optimizer-option weight_decay 0.01"
+    modelopts="networks/ParticleTransformerTiny.py --use-amp --optimizer-option weight_decay 0.01"
     lr="1e-3"
 elif [[ "$model" == "ParT-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformer_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
