@@ -12,45 +12,40 @@ DATADIR=${DATADIR_TopLandscape}
 # set a comment via `COMMENT`
 suffix=${COMMENT}
 
+lr="1e-3"
+optimizer="ranger"
+batch_size=512
+
 # PN, PFN, PCNN, ParT
 model=$1
 extraopts=""
 if [[ "$model" == "ParT" ]]; then
     modelopts="networks/example_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
 elif [[ "$model" == "ParT-Inverter" ]]; then
     modelopts="networks/ParticleTransformerWithInverter.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
 elif [[ "$model" == "ParT-Long" ]]; then
     modelopts="networks/example_ParticleTransformerLong.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
 elif [[ "$model" == "ParT-Wide" ]]; then
     modelopts="networks/example_ParticleTransformerWide.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
 elif [[ "$model" == "ParT-Big" ]]; then
     modelopts="networks/example_ParticleTransformerBig.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
 elif [[ "$model" == "ParT-Small" ]]; then
     modelopts="networks/example_ParticleTransformerSmall.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
 elif [[ "$model" == "ParT-Tiny" ]]; then
     modelopts="networks/ParticleTransformerTiny.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
+    lr="3e-3"
+    optimizer="soap"
+    batch_size=2048
 elif [[ "$model" == "ParT-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformer_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
 elif [[ "$model" == "ParT-Long-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformerLong_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
 elif [[ "$model" == "ParT-Wide-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformerLong_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
 elif [[ "$model" == "ParT-Big-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformerLong_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
 elif [[ "$model" == "ParT-Small-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformerSmall_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
-    lr="1e-3"
 elif [[ "$model" == "ParT-FineTune" ]]; then
     modelopts="networks/example_ParticleTransformer_finetune.py --use-amp --optimizer-option weight_decay 0.01"
     lr="1e-4"
@@ -97,7 +92,7 @@ for part in train val test; do
         --num-workers 1 \
         --fetch-step 1 \
         --in-memory \
-        --batch-size 512 \
+        --batch-size $batch_size \
         --predict-gpus 0 \
         --gpus 0,1 \
         --log logs/TopLandscape_${model}_{auto}${suffix}.log \
