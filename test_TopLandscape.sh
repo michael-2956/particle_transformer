@@ -36,6 +36,16 @@ elif [[ "$model" == "ParT-Tiny" ]]; then
     lr="3e-3"
     optimizer="soap"
     batch_size=2048
+elif [[ "$model" == "ParT-Tiny-NoDrop" ]]; then
+    modelopts="networks/ParticleTransformerTinyNoDropout.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="3e-3"
+    optimizer="soap"
+    batch_size=2048
+elif [[ "$model" == "ParT-Pico-NoDrop" ]]; then
+    modelopts="networks/ParticleTransformerPicoNoDropout.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="3e-3"
+    optimizer="soap"
+    batch_size=2048
 elif [[ "$model" == "ParT-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformer_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "ParT-Long-AlteredLoss" ]]; then
