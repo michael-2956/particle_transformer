@@ -107,7 +107,7 @@ fi
 # --num-epochs 20
 
 weaver \
-    --gpus 0,1 \
+    --gpus 0 \
     --data-train "${DATADIR}/train_file.parquet" \
     --data-val "${DATADIR}/val_file.parquet" \
     --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml --network-config $modelopts \
