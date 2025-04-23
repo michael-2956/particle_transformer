@@ -21,6 +21,8 @@ model=$1
 extraopts=""
 if [[ "$model" == "ParT" ]]; then
     modelopts="networks/example_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
+elif [[ "$model" == "ParT-MultiplePairEmbeds" ]]; then
+    modelopts="networks/ParticleTransformerMultiplePairEmbeds.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "ParT-Inverter" ]]; then
     modelopts="networks/ParticleTransformerWithInverter.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "ParT-Long" ]]; then
