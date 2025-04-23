@@ -38,6 +38,7 @@ def get_model(data_config, **kwargs):
         block_params={'dropout': 0, 'attn_dropout': 0, 'activation_dropout': 0},
         cls_block_params={'dropout': 0, 'attn_dropout': 0, 'activation_dropout': 0},
         fc_params=[],
+        multiple_pair_embed=True,
         activation='gelu',
         trim=False,
         for_inference=False,

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export DATADIR_JetClass=
-export DATADIR_TopLandscape=top_tagging_dataset/TopLandscape/
+export DATADIR_TopLandscape=/Users/mykhailo/research/cern/part_pred_analysis/jet_tagging_with_predictions_of_part_tiny_35eps_soap_on_std_mean_non_mirrors_it1_2it8M02
+# export DATADIR_TopLandscape=top_tagging_dataset/TopLandscape/
 # export DATADIR_TopLandscape=/Users/mykhailo/research/cern/part_pred_analysis/invert_part_mistakes
 export DATADIR_QuarkGluon=
