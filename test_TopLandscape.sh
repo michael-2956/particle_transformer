@@ -21,6 +21,11 @@ model=$1
 extraopts=""
 if [[ "$model" == "ParT" ]]; then
     modelopts="networks/example_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
+elif [[ "$model" == "ParT-Trim16-SH" ]]; then
+    modelopts="networks/example_ParticleTransformer_Trim16_SH.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="3e-3"
+    optimizer="soap"
+    batch_size=2048
 elif [[ "$model" == "ParT-MultiplePairEmbeds" ]]; then
     modelopts="networks/ParticleTransformerMultiplePairEmbeds.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "InteractionTransformer" ]]; then
