@@ -41,6 +41,11 @@ elif [[ "$model" == "ParT-Wide" ]]; then
     modelopts="networks/example_ParticleTransformerWide.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "ParT-Big" ]]; then
     modelopts="networks/example_ParticleTransformerBig.py --use-amp --optimizer-option weight_decay 0.01"
+elif [[ "$model" == "ParT-Big-Trim16-SH" ]]; then
+    modelopts="networks/ParticleTransformerBig_Trim16_SH.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="3e-3"
+    optimizer="soap"
+    batch_size=2048
 elif [[ "$model" == "ParT-Small" ]]; then
     modelopts="networks/example_ParticleTransformerSmall.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "ParT-Tiny" ]]; then
