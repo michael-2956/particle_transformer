@@ -53,7 +53,7 @@ def get_model(data_config, **kwargs):
         activation='gelu',
         trim=True,
         trim_mode="fixed_shuffle_always",
-        trim_mode_fixed_length=16,
+        trim_mode_fixed_length=8,
         for_inference=False,
     )
     cfg.update(**kwargs)
