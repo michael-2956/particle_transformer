@@ -23,6 +23,11 @@ if [[ "$model" == "ParT" ]]; then
     modelopts="networks/example_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "ParT-MultiplePairEmbeds" ]]; then
     modelopts="networks/ParticleTransformerMultiplePairEmbeds.py --use-amp --optimizer-option weight_decay 0.01"
+elif [[ "$model" == "InteractionTransformer" ]]; then
+    modelopts="networks/InteractionTransformer.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="3e-3"
+    optimizer="soap"
+    batch_size=512
 elif [[ "$model" == "ParT-Inverter" ]]; then
     modelopts="networks/ParticleTransformerWithInverter.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "ParT-Long" ]]; then
@@ -63,6 +68,11 @@ elif [[ "$model" == "ParT-Nano-NoDrop-NoTrim" ]]; then
     lr="3e-3"
     optimizer="soap"
     batch_size=2048
+elif [[ "$model" == "ParT-Nano-NoDrop-Trim16-Shuffle-noU-M128" ]]; then
+    modelopts="networks/ParticleTransformer_Nano_NoDropout_trim16_shuffle_noU_Mult128.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="3e-3"
+    optimizer="soap"
+    batch_size=8196
 elif [[ "$model" == "ParT-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformer_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "ParT-Long-AlteredLoss" ]]; then
@@ -108,6 +118,9 @@ fi
 # (!) PASS THIS OPTION IN KAGGLE:
 # --model-prefix trained_models/model.pt
 
+# preds_location="kaggle"
+preds_location="local_cpu"
+
 # evaluate on all 3 subsets
 for part in train val test; do
     echo "Processing ${part} data..."
@@ -123,7 +136,7 @@ for part in train val test; do
         --predict-gpus 0 \
         --gpus 0 \
         --log logs/TopLandscape_${model}_{auto}${suffix}.log \
-        --predict-output pred_${part}_kaggle.root \
+        --predict-output pred_${part}_${preds_location}.root \
         --tensorboard TopLandscape_${FEATURE_TYPE}_${model}${suffix} \
         ${extraopts} "${@:3}"
 done

@@ -23,6 +23,11 @@ if [[ "$model" == "ParT" ]]; then
     modelopts="networks/example_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "ParT-MultiplePairEmbeds" ]]; then
     modelopts="networks/ParticleTransformerMultiplePairEmbeds.py --use-amp --optimizer-option weight_decay 0.01"
+elif [[ "$model" == "InteractionTransformer" ]]; then
+    modelopts="networks/InteractionTransformer.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="3e-3"
+    optimizer="soap"
+    batch_size=512
 elif [[ "$model" == "ParT-Inverter" ]]; then
     modelopts="networks/ParticleTransformerWithInverter.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "ParT-Long" ]]; then
@@ -63,6 +68,11 @@ elif [[ "$model" == "ParT-Nano-NoDrop-NoTrim" ]]; then
     lr="3e-3"
     optimizer="soap"
     batch_size=2048
+elif [[ "$model" == "ParT-Nano-NoDrop-Trim16-Shuffle-noU-M128" ]]; then
+    modelopts="networks/ParticleTransformer_Nano_NoDropout_trim16_shuffle_noU_Mult128.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="3e-3"
+    optimizer="soap"
+    batch_size=8196
 elif [[ "$model" == "ParT-AlteredLoss" ]]; then
     modelopts="networks/example_ParticleTransformer_AlteredLoss.py --use-amp --optimizer-option weight_decay 0.01"
 elif [[ "$model" == "ParT-Long-AlteredLoss" ]]; then

@@ -35,13 +35,14 @@ def get_model(data_config, **kwargs):
 
     cfg = dict(
         input_dim=len(data_config.input_dicts['pf_features']),
+        num_runs=128,
         num_classes=len(data_config.label_value),
         # network configurations
         pair_input_dim=4,
         pair_extra_dim=0,
         use_pre_activation_pair=False,
         embed_dims=[8, 16, 8],  # [128, 512, 128]
-        pair_embed_dims=[8, 8, 8],  # [64, 64, 64],
+        pair_embed_dims=None,  # [8, 8, 8],  # [64, 64, 64],
         num_heads=2,
         num_layers=3,
         num_cls_layers=1,
@@ -51,13 +52,15 @@ def get_model(data_config, **kwargs):
         multiple_pair_embed=False,
         activation='gelu',
         trim=True,
+        trim_mode="fixed_shuffle_always",
+        trim_mode_fixed_length=16,
         for_inference=False,
     )
     cfg.update(**kwargs)
     _logger.info('Model config: %s' % str(cfg))
 
     model = ParticleTransformerWrapper(
-        use_multiple=False,
+        use_multiple=True,
         **cfg
     )
 
