@@ -118,8 +118,8 @@ fi
 # (!) PASS THIS OPTION IN KAGGLE:
 # --model-prefix trained_models/model.pt
 
-# preds_location="kaggle"
-preds_location="local_cpu"
+preds_location="kaggle"
+# preds_location="local_cpu"
 
 # evaluate on all 3 subsets
 for part in train val test; do
