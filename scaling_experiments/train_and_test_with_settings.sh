@@ -22,7 +22,7 @@ extraopts=""
 modelopts="networks/scalable_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
 
 # "kin"
-FEATURE_TYPE=$2
+FEATURE_TYPE=$1
 shift 1
 [[ -z ${FEATURE_TYPE} ]] && FEATURE_TYPE="kin"  # kin by default
 if [[ "${FEATURE_TYPE}" != "kin" && "${FEATURE_TYPE}" != "kin_aug" ]]; then
