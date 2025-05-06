@@ -31,6 +31,7 @@ echo "export DATADIR_JetClass=" >> particle_transformer/env.sh
 echo "export DATADIR_TopLandscape=${dataset_path}" >> particle_transformer/env.sh
 echo "export DATADIR_QuarkGluon=" >> particle_transformer/env.sh
 
+echo
 echo Ready to run!
 echo Now, cd particle_transformer and run each script from scaling_experiments/setting_collections individually
 echo For example:
