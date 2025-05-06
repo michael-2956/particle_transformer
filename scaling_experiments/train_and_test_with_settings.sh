@@ -75,9 +75,9 @@ weaver \
     --network-option pair_embedding_scale_mult ${pesm} \
     ${extraopts} "$@"
 
-!mkdir -p tested_models
-!cp "$(find training/TopLandscape/${model} -maxdepth 1 -mindepth 1 -type d)/net_best_epoch_state.pt" tested_models/${model}_best.pt
-!cp "$(find training/TopLandscape/${model} -maxdepth 1 -mindepth 1 -type d)/net_epoch-19_state.pt" tested_models/${model}_last.pt
+mkdir -p tested_models
+cp "$(find training/TopLandscape/${model} -maxdepth 1 -mindepth 1 -type d)/net_best_epoch_state.pt" tested_models/${model}_best.pt
+cp "$(find training/TopLandscape/${model} -maxdepth 1 -mindepth 1 -type d)/net_epoch-19_state.pt" tested_models/${model}_last.pt
 
 for wt_path in ${model}_best ${model}_last; do
     # evaluate on all 3 subsets
