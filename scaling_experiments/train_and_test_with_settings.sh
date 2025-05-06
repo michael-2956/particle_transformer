@@ -79,7 +79,7 @@ weaver \
 !cp "$(find training/TopLandscape/${model} -maxdepth 1 -mindepth 1 -type d)/net_best_epoch_state.pt" tested_models/${model}_best.pt
 !cp "$(find training/TopLandscape/${model} -maxdepth 1 -mindepth 1 -type d)/net_epoch-19_state.pt" tested_models/${model}_last.pt
 
-for wt_path in ${model}_best.pt ${model}_last.pt; do
+for wt_path in ${model}_best ${model}_last; do
     # evaluate on all 3 subsets
     for part in train val test; do
         echo "Processing ${part} data..."
@@ -94,10 +94,10 @@ for wt_path in ${model}_best.pt ${model}_last.pt; do
             --batch-size $batch_size \
             --predict-gpus 0 \
             --gpus 0 \
-            --log logs/TopLandscape_${model}_{auto}${suffix}.log \
-            --predict-output pred_${model}_${part}_${preds_location}.root \
-            --tensorboard TopLandscape_${FEATURE_TYPE}_${model}${suffix} \
-            --model-prefix tested_models/${wt_path} \
+            --log logs/TopLandscape_${wt_path}_{auto}${suffix}.log \
+            --predict-output pred_${wt_path}_${part}_${preds_location}.root \
+            --tensorboard TopLandscape_${FEATURE_TYPE}_${wt_path}${suffix} \
+            --model-prefix tested_models/${wt_path}.pt \
             --network-option total_num_layers ${nl} \
             --network-option num_cls_layers_mult ${nlcm} \
             --network-option embedding_scale_mult ${esm} \
