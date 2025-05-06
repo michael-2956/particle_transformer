@@ -95,7 +95,7 @@ for wt_path in ${model}_best.pt ${model}_last.pt; do
             --predict-gpus 0 \
             --gpus 0 \
             --log logs/TopLandscape_${model}_{auto}${suffix}.log \
-            --predict-output pred_${part}_${preds_location}.root \
+            --predict-output pred_${model}_${part}_${preds_location}.root \
             --tensorboard TopLandscape_${FEATURE_TYPE}_${model}${suffix} \
             --model-prefix tested_models/${wt_path} \
             --network-option total_num_layers ${nl} \
