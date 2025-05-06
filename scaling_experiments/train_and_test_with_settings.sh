@@ -17,11 +17,13 @@ batch_size=512
 lr="3e-3"
 
 model=$1
+shift 1
 extraopts=""
 modelopts="networks/scalable_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
 
 # "kin"
 FEATURE_TYPE=$2
+shift 1
 [[ -z ${FEATURE_TYPE} ]] && FEATURE_TYPE="kin"  # kin by default
 if [[ "${FEATURE_TYPE}" != "kin" && "${FEATURE_TYPE}" != "kin_aug" ]]; then
     echo "Invalid feature type ${FEATURE_TYPE}!  Allowed: kin | kin_aug"
@@ -71,7 +73,7 @@ weaver \
     --network-option num_cls_layers_mult ${nlcm} \
     --network-option embedding_scale_mult ${esm} \
     --network-option pair_embedding_scale_mult ${pesm} \
-    ${extraopts} "${@:3}"
+    ${extraopts} "$@"
 
 !mkdir -p tested_models
 !cp "$(find training/TopLandscape/${model} -maxdepth 1 -mindepth 1 -type d)/net_best_epoch_state.pt" tested_models/${model}_best.pt
@@ -100,6 +102,6 @@ for wt_path in ${model}_best.pt ${model}_last.pt; do
             --network-option num_cls_layers_mult ${nlcm} \
             --network-option embedding_scale_mult ${esm} \
             --network-option pair_embedding_scale_mult ${pesm} \
-            ${extraopts} "${@:3}"
+            ${extraopts} "$@"
     done
 done
