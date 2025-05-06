@@ -13,10 +13,10 @@ class ScalableParticleTransformerWrapper(torch.nn.Module):
     def __init__(self, **kwargs) -> None:
         super().__init__()
         
-        total_num_layers = kwargs.get('total_num_layers', 10)
-        num_cls_layers_mult = kwargs.get('num_cls_layers_mult', 0.2)
-        embedding_scale_mult = kwargs.get('embedding_scale_mult', 1)
-        pair_embedding_scale_mult = kwargs.get('pair_embedding_scale_mult', 1)
+        total_num_layers = kwargs.pop('total_num_layers', 10)
+        num_cls_layers_mult = kwargs.pop('num_cls_layers_mult', 0.2)
+        embedding_scale_mult = kwargs.pop('embedding_scale_mult', 1)
+        pair_embedding_scale_mult = kwargs.pop('pair_embedding_scale_mult', 1)
 
         kwargs['num_cls_layers'] = int(np.ceil(num_cls_layers_mult * total_num_layers - 1e-18))
         
