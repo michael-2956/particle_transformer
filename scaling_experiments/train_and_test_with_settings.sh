@@ -30,10 +30,12 @@ fi
 
 preds_location="cern_cluster"
 
-nl=""
-nlcm=""
-esm=""
-pesm=""
+# default settings
+nl=10
+nlcm=0.2
+esm=1
+pesm=1
+
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --total-num-layers)
