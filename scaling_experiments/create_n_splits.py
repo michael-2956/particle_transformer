@@ -11,10 +11,10 @@ ks = (
 
 a = np.concatenate([
     [1],  # default weight is 1
-    np.array(list(map(float, list("1 2 3 4 6 8 12 16 20 24 30 36 42 50".split(" "))))) / 10,
-    np.ones(9, dtype=np.float64),
-    np.array(list(map(float, list("0.03125 0.0625 0.125 0.25 0.5 2 4".split(" "))))),
-    np.array(list(map(float, list("0.03125 0.0625 0.125 0.25 0.5 2 4".split(" "))))),
+    (np.array(list(map(float, [1, 2, 3, 4, 6, 8, 12, 16, 20, 24, 30, 36, 42, 50]))) / 10) * 0.2078 + 0.7922,  # number of layers affects linearly, takes 20% in the original model
+    np.ones(9, dtype=np.float64),                                                                             # the cls layer proportion does not affect time
+    (np.array(list(map(float, [0.03125, 0.0625, 0.125, 0.25, 0.5, 2, 4]))) ** 2) * 0.2078 + 0.7922,           # usual embeds take 20% of the time originally, setting affects quadratically
+    (np.array(list(map(float, [0.03125, 0.0625, 0.125, 0.25, 0.5, 2, 4]))) ** 2) * 0.7922 + 0.2078,           # pair embeds  take 80% of the time originally, setting affects quadratically
 ])
 
 num_splits = 10
