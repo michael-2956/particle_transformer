@@ -30,10 +30,8 @@ echo "export DATADIR_QuarkGluon=" >> particle_transformer/env.sh
 
 echo Ready to run!
 echo Now, cd particle_transformer and run each script from scaling_experiments/setting_collections individually
-echo For example, if you ran this script as
-echo ./scaling_experiments/preparations.sh
-echo Then:
+echo For example:
 echo cd particle_transformer
-echo ../scaling_experiments/setting_collections/setting_1.sh
+echo ./scaling_experiments/setting_collections/setting_1.sh
 echo ...
-echo ../scaling_experiments/setting_collections/setting_10.sh
+echo ./scaling_experiments/setting_collections/setting_10.sh
