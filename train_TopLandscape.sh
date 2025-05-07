@@ -143,7 +143,7 @@ fi
 # --load-model-weights trained_models/parT_small_val7884.pt \
 # --use-xla --gpus "" \
 
-# (!) PASS THIS OPTION IN KAGGLE:
+# You can pass this option in Kaggle:
 # --num-epochs 20
 
 weaver \
@@ -160,4 +160,5 @@ weaver \
     --optimizer $optimizer \
     --log logs/TopLandscape_${model}_{auto}${suffix}.log --predict-output pred.root \
     --tensorboard TopLandscape_${FEATURE_TYPE}_${model}${suffix} \
+    --num-epochs 20 \
     ${extraopts} "${@:3}"
