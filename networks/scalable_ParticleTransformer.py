@@ -21,7 +21,7 @@ def process_scaling_args(kwargs):
     kwargs['num_layers'] = total_num_layers - kwargs['num_cls_layers']
 
     neurons_per_head = kwargs['embed_dims'][-1] // kwargs['num_heads']
-    print(f"Neurons per head: {neurons_per_head} = {kwargs['embed_dims'][-1]} / {kwargs['num_heads']}")
+    print(f"{'Neurons per head:':30} {neurons_per_head} = {kwargs['embed_dims'][-1]} / {kwargs['num_heads']}")
 
     kwargs['embed_dims'] = list(map(
         lambda x: int(np.round(x * embedding_scale_mult)),
