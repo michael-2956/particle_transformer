@@ -1,6 +1,7 @@
 import torch
-from weaver.nn.model.ParticleTransformer import ParticleTransformer
 from weaver.utils.logger import _logger
+from .scalable_ParticleTransformer import process_scaling_args
+from weaver.nn.model.ParticleTransformer import ParticleTransformer
 
 '''
 Link to the full model implementation:
@@ -11,6 +12,9 @@ https://github.com/hqucms/weaver-core/blob/main/weaver/nn/model/ParticleTransfor
 class ParticleTransformerWrapper(torch.nn.Module):
     def __init__(self, **kwargs) -> None:
         super().__init__()
+
+        process_scaling_args(kwargs)
+
         self.mod = ParticleTransformer(**kwargs)
 
     @torch.jit.ignore

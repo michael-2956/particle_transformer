@@ -25,6 +25,10 @@ elif [[ "$model" == "ParT-Soap" ]]; then
     modelopts="networks/example_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
     lr="3e-3"
     optimizer="soap"
+elif [[ "$model" == "ParT-Soap-Scalable" ]]; then
+    modelopts="networks/scalable_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="3e-3"
+    optimizer="soap"
 elif [[ "$model" == "ParT-PEmb2-W-PrevAttnWts" ]]; then
     modelopts="networks/ParticleTransformerAttnPairEmbeds.py --use-amp --optimizer-option weight_decay 0.01"
     lr="3e-3"
