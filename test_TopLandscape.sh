@@ -33,6 +33,10 @@ elif [[ "$model" == "ParT-PEmb2-W-PrevAttnWts" ]]; then
     modelopts="networks/ParticleTransformerAttnPairEmbeds.py --use-amp --optimizer-option weight_decay 0.01"
     lr="3e-3"
     optimizer="soap"
+elif [[ "$model" == "ParT-PEmb1-TsfmAttnWts" ]]; then
+    modelopts="networks/ParticleTransformerTransformAttnWts.py --use-amp --optimizer-option weight_decay 0.01"
+    lr="3e-3"
+    optimizer="soap"
 elif [[ "$model" == "ParT-Trim16-SH" ]]; then
     modelopts="networks/example_ParticleTransformer_Trim16_SH.py --use-amp --optimizer-option weight_decay 0.01"
     lr="3e-3"
