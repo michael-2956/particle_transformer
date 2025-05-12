@@ -76,7 +76,7 @@ weaver \
     --network-option num_cls_layers_mult ${nlcm} \
     --network-option embedding_scale_mult ${esm} \
     --network-option pair_embedding_scale_mult ${pesm} \
-    --num-neurons-per-head num_neurons_per_head ${nnph} \
+    --network-option num_neurons_per_head ${nnph} \
     ${extraopts} "$@"
 
 mkdir -p tested_models
@@ -109,7 +109,7 @@ for wt_path in ${model}_best ${model}_last; do
             --network-option num_cls_layers_mult ${nlcm} \
             --network-option embedding_scale_mult ${esm} \
             --network-option pair_embedding_scale_mult ${pesm} \
-            --num-neurons-per-head num_neurons_per_head ${nnph} \
+            --network-option num_neurons_per_head ${nnph} \
             ${extraopts} "$@"
     done
 done
