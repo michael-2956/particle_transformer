@@ -15,24 +15,24 @@ def process_scaling_args(kwargs):
     num_cls_layers_mult = kwargs.pop('num_cls_layers_mult', kwargs['num_cls_layers'] / total_num_layers_default)
     embedding_scale_mult = kwargs.pop('embedding_scale_mult', 1)
     pair_embedding_scale_mult = kwargs.pop('pair_embedding_scale_mult', 1)
+    num_neurons_per_head = kwargs.pop('num_neurons_per_head', kwargs['embed_dims'][-1] // kwargs['num_heads'])
 
     kwargs['num_cls_layers'] = int(np.ceil(num_cls_layers_mult * total_num_layers - 1e-18))
     
     kwargs['num_layers'] = total_num_layers - kwargs['num_cls_layers']
 
-    neurons_per_head = kwargs['embed_dims'][-1] // kwargs['num_heads']
-    print(f"{'Neurons per head:':30} {neurons_per_head} = {kwargs['embed_dims'][-1]} / {kwargs['num_heads']}")
+    print(f"{'Neurons per head:':30} {num_neurons_per_head}")
 
     kwargs['embed_dims'] = list(map(
         lambda x: int(np.round(x * embedding_scale_mult)),
         kwargs['embed_dims']
     ))
 
-    # 16 neurons per head
-    if kwargs['embed_dims'][-1] < 16:
+    # neurons per head
+    if kwargs['embed_dims'][-1] < num_neurons_per_head:
         kwargs['num_heads'] = 1
     else:
-        kwargs['num_heads'] = int(np.round(kwargs['embed_dims'][-1] / neurons_per_head))
+        kwargs['num_heads'] = int(np.round(kwargs['embed_dims'][-1] / num_neurons_per_head))
 
     kwargs['pair_embed_dims'] = list(map(
         lambda x: int(np.round(x * pair_embedding_scale_mult)),

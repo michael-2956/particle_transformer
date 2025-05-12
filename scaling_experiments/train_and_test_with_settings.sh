@@ -37,6 +37,7 @@ nl=10
 nlcm=0.2
 esm=1
 pesm=1
+nnph=16
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -48,6 +49,8 @@ while [[ $# -gt 0 ]]; do
       esm="$2"; shift 2;;
     --pair-embedding-scale-mult)
       pesm="$2"; shift 2;;
+    --num-neurons-per-head)
+      nnph="$2"; shift 2;;
     *)
       break
       ;;
@@ -73,6 +76,7 @@ weaver \
     --network-option num_cls_layers_mult ${nlcm} \
     --network-option embedding_scale_mult ${esm} \
     --network-option pair_embedding_scale_mult ${pesm} \
+    --num-neurons-per-head num_neurons_per_head ${nnph} \
     ${extraopts} "$@"
 
 mkdir -p tested_models
@@ -105,6 +109,7 @@ for wt_path in ${model}_best ${model}_last; do
             --network-option num_cls_layers_mult ${nlcm} \
             --network-option embedding_scale_mult ${esm} \
             --network-option pair_embedding_scale_mult ${pesm} \
+            --num-neurons-per-head num_neurons_per_head ${nnph} \
             ${extraopts} "$@"
     done
 done
