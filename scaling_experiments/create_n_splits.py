@@ -19,7 +19,7 @@ from pathlib import Path
 
 ks = (
     list(map(lambda x: ("nnph", x), list("1 2 4 8 32 64 128".split(" "))))
-    # list(map(lambda x: ("nnph", x), list("1 2 4 128 64 32 8".split(" "))))
+    # list(map(lambda x: ("nnph", x), list("2 4 8 1 128 64 32".split(" "))))
 )
 
 a = np.concatenate([
