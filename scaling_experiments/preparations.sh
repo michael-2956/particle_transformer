@@ -1,4 +1,5 @@
 #!/bin/bash
+BRANCH=${1:-main}
 
 # fail on error, unset variable,
 # or if any stage in a pipeline fails
@@ -16,8 +17,8 @@ dataset_path=$(realpath original_dataset)
 
 echo Cloning repositories \& installing dependencies ...
 
-echo Cloning weaver-core...
-git clone https://github.com/michael-2956/weaver-core.git &> /dev/null
+echo Cloning $BRANCH of weaver-core...
+git clone --branch "$BRANCH" --depth 1 https://github.com/michael-2956/weaver-core.git &> /dev/null
 echo Cloning particle_transformer...
 git clone https://github.com/michael-2956/particle_transformer.git &> /dev/null
 echo Installing weaver-core...
