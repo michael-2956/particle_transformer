@@ -70,8 +70,8 @@ def get_model(data_config, **kwargs):
         pair_input_dim=4,
         pair_extra_dim=0,
         use_pre_activation_pair=False,
-        embed_dims=[128, 512, 128],
-        pair_embed_dims=[64, 64, 64],
+        embed_dims=[128, 512, 128], # 8 = 1/16 = 0.0625
+        pair_embed_dims=[64, 64, 64], # 8 = 1/8 = 0.125
         num_heads=8,
         num_layers=8,
         num_cls_layers=2,
