@@ -2,4 +2,4 @@
 
 cd ../weaver-core
 git pull
-cd ../particle-transformer
+cd ../particle_transformer
