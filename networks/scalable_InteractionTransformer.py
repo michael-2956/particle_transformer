@@ -45,7 +45,7 @@ def process_scaling_args(kwargs):
     ]:
         print(f"{k:30}: {kwargs[k]}")
 
-class ScalableParticleTransformerWrapper(torch.nn.Module):
+class ScalableInteractionTransformerWrapper(torch.nn.Module):
     def __init__(self, **kwargs) -> None:
         super().__init__()
         
@@ -88,7 +88,7 @@ def get_model(data_config, **kwargs):
     cfg.update(**kwargs)
     _logger.info('Model config: %s' % str(cfg))
 
-    model = ScalableParticleTransformerWrapper(**cfg)
+    model = ScalableInteractionTransformerWrapper(**cfg)
 
     model_info = {
         'input_names': list(data_config.input_names),
