@@ -37,7 +37,7 @@ def process_scaling_args(kwargs):
     kwargs['pair_embed_dims'] = list(map(
         lambda x: int(np.round(x * pair_embedding_scale_mult)),
         kwargs['pair_embed_dims']
-    ))
+    )) if kwargs['pair_embed_dims'] is not None else None
 
     print("Scaled parameters:")
     for k in [
