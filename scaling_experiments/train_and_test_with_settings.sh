@@ -86,30 +86,30 @@ latest=$(find training/TopLandscape/${model} -maxdepth 1 -mindepth 1 -type d \
 cp "${latest}/net_best_epoch_state.pt" tested_models/${model}_best.pt
 cp "${latest}/net_epoch-19_state.pt"   tested_models/${model}_last.pt
 
-for wt_path in ${model}_best ${model}_last; do
-    # evaluate on all 3 subsets
-    for part in train val test; do
-        echo "Processing ${part} data..."
-        weaver \
-            --predict \
-            --data-test "${DATADIR}/${part}_file.parquet" \
-            --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml \
-            --network-config $modelopts \
-            --num-workers 1 \
-            --fetch-step 1 \
-            --in-memory \
-            --batch-size $batch_size \
-            --predict-gpus 0 \
-            --gpus 0 \
-            --log logs/TopLandscape_${wt_path}_{auto}${suffix}.log \
-            --predict-output pred_${wt_path}_${part}_${preds_location}.root \
-            --tensorboard TopLandscape_${FEATURE_TYPE}_${wt_path}${suffix} \
-            --model-prefix tested_models/${wt_path}.pt \
-            --network-option total_num_layers ${nl} \
-            --network-option num_cls_layers_mult ${nlcm} \
-            --network-option embedding_scale_mult ${esm} \
-            --network-option pair_embedding_scale_mult ${pesm} \
-            --network-option num_neurons_per_head ${nnph} \
-            ${extraopts} "$@"
-    done
-done
+# for wt_path in ${model}_best ${model}_last; do
+#     # evaluate on all 3 subsets
+#     for part in train val test; do
+#         echo "Processing ${part} data..."
+#         weaver \
+#             --predict \
+#             --data-test "${DATADIR}/${part}_file.parquet" \
+#             --data-config data/TopLandscape/top_${FEATURE_TYPE}.yaml \
+#             --network-config $modelopts \
+#             --num-workers 1 \
+#             --fetch-step 1 \
+#             --in-memory \
+#             --batch-size $batch_size \
+#             --predict-gpus 0 \
+#             --gpus 0 \
+#             --log logs/TopLandscape_${wt_path}_{auto}${suffix}.log \
+#             --predict-output pred_${wt_path}_${part}_${preds_location}.root \
+#             --tensorboard TopLandscape_${FEATURE_TYPE}_${wt_path}${suffix} \
+#             --model-prefix tested_models/${wt_path}.pt \
+#             --network-option total_num_layers ${nl} \
+#             --network-option num_cls_layers_mult ${nlcm} \
+#             --network-option embedding_scale_mult ${esm} \
+#             --network-option pair_embedding_scale_mult ${pesm} \
+#             --network-option num_neurons_per_head ${nnph} \
+#             ${extraopts} "$@"
+#     done
+# done
