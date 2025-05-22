@@ -74,7 +74,7 @@ weaver \
     --num-workers 1 --fetch-step 1 --in-memory \
     --batch-size $batch_size \
     --samples-per-epoch $((2400 * 512)) \
-    --samples-per-epoch-val 402999 \
+    --samples-per-epoch-val $((800 * 512)) \
     --num-epochs 20 \
     --start-lr $lr \
     --optimizer $optimizer \
