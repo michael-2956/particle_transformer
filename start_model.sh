@@ -7,4 +7,4 @@
     --embedding-scale-mult 0.5 \
     --network-option weighted_decode_every_layer True \
     --network-option identical_attn_weights True \
-    --network-option use_moe False
+    --network-option use_moe True
