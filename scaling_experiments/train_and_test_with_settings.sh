@@ -76,6 +76,7 @@ weaver \
     --samples-per-epoch $((2400 * 512)) \
     --samples-per-epoch-val $((800 * 512)) \
     --num-epochs 20 \
+    --lr-decay-ep-fraction 0.5 \
     --start-lr $lr \
     --optimizer $optimizer \
     --log logs/TopLandscape_${model}_{auto}${suffix}.log --predict-output pred.root \
