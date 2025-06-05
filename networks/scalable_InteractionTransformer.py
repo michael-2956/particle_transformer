@@ -1,6 +1,6 @@
 import torch
 import numpy as np
-from weaver.nn.model.ParticleTransformer import ParticleTransformer
+from weaver.nn.model.ParticleTransformer import InteractionTransformer
 from weaver.utils.logger import _logger
 
 '''
@@ -45,13 +45,13 @@ def process_scaling_args(kwargs):
     ]:
         print(f"{k:30}: {kwargs[k]}")
 
-class ScalableParticleTransformerWrapper(torch.nn.Module):
+class ScalableInteractionTransformerWrapper(torch.nn.Module):
     def __init__(self, **kwargs) -> None:
         super().__init__()
         
         process_scaling_args(kwargs)
 
-        self.mod = ParticleTransformer(**kwargs)
+        self.mod = InteractionTransformer(**kwargs)
 
     @torch.jit.ignore
     def no_weight_decay(self):
@@ -62,15 +62,16 @@ class ScalableParticleTransformerWrapper(torch.nn.Module):
 
 
 def get_model(data_config, **kwargs):
-
     cfg = dict(
-        input_dim=len(data_config.input_dicts['pf_features']),
+        input_seq_len=128,
+        interactions_dim=4,
         num_classes=len(data_config.label_value),
         # network configurations
         pair_input_dim=4,
+        pair_extra_dim=0,
         use_pre_activation_pair=False,
-        embed_dims=[128, 512, 128],
-        pair_embed_dims=[64, 64, 64],
+        embed_dims=[128, 512, 128], # 8 = 1/16 = 0.0625
+        pair_embed_dims=[64, 64, 64], # 8 = 1/8 = 0.125
         num_heads=8,
         num_layers=8,
         num_cls_layers=2,
@@ -78,14 +79,16 @@ def get_model(data_config, **kwargs):
         cls_block_params={'dropout': 0, 'attn_dropout': 0, 'activation_dropout': 0},
         fc_params=[],
         activation='gelu',
+        attention='linformer',
+        lin_proj_dim=4,
         # misc
         trim=True,
-        for_inference=False,
+        for_inference=False
     )
     cfg.update(**kwargs)
     _logger.info('Model config: %s' % str(cfg))
 
-    model = ScalableParticleTransformerWrapper(**cfg)
+    model = ScalableInteractionTransformerWrapper(**cfg)
 
     model_info = {
         'input_names': list(data_config.input_names),

@@ -19,7 +19,15 @@ lr="3e-3"
 model=$1
 shift 1
 extraopts=""
-modelopts="networks/scalable_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
+
+if [[ $model == ParT* ]]; then
+  modelopts="networks/scalable_ParticleTransformer.py --use-amp --optimizer-option weight_decay 0.01"
+elif [[ $model == InT* ]]; then
+  modelopts="networks/scalable_InteractionTransformer.py --use-amp --optimizer-option weight_decay 0.01"
+else
+  echo "Invalid model $model!"
+  exit 1
+fi
 
 # "kin"
 FEATURE_TYPE=$1
@@ -66,7 +74,7 @@ weaver \
     --num-workers 1 --fetch-step 1 --in-memory \
     --batch-size $batch_size \
     --samples-per-epoch $((2400 * 512)) \
-    --samples-per-epoch-val 402999 \
+    --samples-per-epoch-val $((800 * 512)) \
     --num-epochs 20 \
     --start-lr $lr \
     --optimizer $optimizer \
