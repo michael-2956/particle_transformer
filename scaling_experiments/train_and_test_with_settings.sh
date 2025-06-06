@@ -75,7 +75,7 @@ weaver \
     --batch-size $batch_size \
     --samples-per-epoch $((2400 * 512)) \
     --samples-per-epoch-val $((800 * 512)) \
-    --num-epochs 20 \
+    --num-epochs 1 \
     --lr-decay-ep-fraction 0.5 \
     --start-lr $lr \
     --optimizer $optimizer \
