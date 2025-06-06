@@ -73,9 +73,9 @@ weaver \
     --model-prefix training/TopLandscape/${model}/{auto}${suffix}/net \
     --num-workers 1 --fetch-step 1 --in-memory \
     --batch-size $batch_size \
-    --samples-per-epoch $((200 * 512)) \
-    --samples-per-epoch-val $((400 * 512)) \
-    --num-epochs 1 \
+    --samples-per-epoch $((2400 * 512)) \
+    --samples-per-epoch-val $((800 * 512)) \
+    --num-epochs 20 \
     --lr-decay-ep-fraction 0.5 \
     --start-lr $lr \
     --optimizer $optimizer \
