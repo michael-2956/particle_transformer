@@ -74,7 +74,7 @@ weaver \
     --num-workers 1 --fetch-step 1 --in-memory \
     --batch-size $batch_size \
     --samples-per-epoch $((200 * 512)) \
-    --samples-per-epoch-val $((800 * 512)) \
+    --samples-per-epoch-val $((400 * 512)) \
     --num-epochs 1 \
     --lr-decay-ep-fraction 0.5 \
     --start-lr $lr \
