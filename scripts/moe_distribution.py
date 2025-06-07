@@ -50,7 +50,7 @@ def load_arrays(path):
             block_data.append(clean)
         else:
             cls_block_data.append(clean)
-
+    print(len(block_data[0]))
     return block_data, cls_block_data
 
 
@@ -59,6 +59,7 @@ def main():
         description="Show encoder/decoder routing histograms in two windows."
     )
     parser.add_argument("rootfile", help="Path to the .root file")
+    parser.add_argument("save-plots", action='store_true', default=False, help="Whether or not to save plot images")
     args = parser.parse_args()
 
     root_path = Path(args.rootfile)
@@ -69,6 +70,9 @@ def main():
 
     fig_enc = group_histograms(block_data, "Encoder")
     fig_dec = group_histograms(cls_block_data, "Decoder")
+
+    fig_enc.savefig("encoder_routing.png", dpi=300, bbox_inches="tight")
+    fig_dec.savefig("decoder_routing.png", dpi=300, bbox_inches="tight")
 
     plt.show()
 
