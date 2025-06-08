@@ -113,6 +113,7 @@ $CMD \
     --samples-per-epoch-val ${samples_per_epoch_val} \
     --num-epochs $epochs \
     --gpus 0 \
+    --predict-gpus 0 \
     --optimizer $optimizer \
     --batch-size $batch_size \
     --start-lr $lr \
