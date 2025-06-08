@@ -8,7 +8,7 @@ echo "args: $@"
 
 # set the dataset dir via `DATADIR_JetClass`
 DATADIR=${DATADIR_JetClass}
-[[ -z $DATADIR ]] && DATADIR='./datasets/JetClass'
+[[ -z $DATADIR ]] && DATADIR='./datasets/JetClass-10M'
 
 # set a comment via `COMMENT`
 suffix=${COMMENT}
