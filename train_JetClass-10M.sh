@@ -22,9 +22,12 @@ else
     CMD="weaver"
 fi
 
-epochs=50
-samples_per_epoch=$((10000 * 1024 / $NGPUS))
-samples_per_epoch_val=$((10000 * 128))
+# epochs=50
+epochs=20
+# samples_per_epoch=$((10000 * 1024 / $NGPUS))
+# samples_per_epoch_val=$((10000 * 128))
+samples_per_epoch=$((2000 * 512 / $NGPUS))
+samples_per_epoch_val=$((2500 * 512))
 dataopts="--num-workers 2 --fetch-step 0.01"
 
 # PN, PFN, PCNN, ParT
