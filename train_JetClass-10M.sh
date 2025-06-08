@@ -13,6 +13,10 @@ DATADIR=${DATADIR_JetClass}
 # set a comment via `COMMENT`
 suffix=${COMMENT}
 
+optimizer="soap"
+batch_size=512
+lr="3e-3"
+
 # set the number of gpus for DDP training via `DDP_NGPUS`
 NGPUS=${DDP_NGPUS}
 [[ -z $NGPUS ]] && NGPUS=1
@@ -30,33 +34,50 @@ samples_per_epoch=$((2000 * 512 / $NGPUS))
 samples_per_epoch_val=$((2500 * 512))
 dataopts="--num-workers 2 --fetch-step 0.01"
 
-# PN, PFN, PCNN, ParT
 model=$1
-if [[ "$model" == "ParT" ]]; then
-    modelopts="networks/example_ParticleTransformer.py --use-amp"
-    batchopts="--batch-size 512 --start-lr 1e-3"
-elif [[ "$model" == "PN" ]]; then
-    modelopts="networks/example_ParticleNet.py"
-    batchopts="--batch-size 512 --start-lr 1e-2"
-elif [[ "$model" == "PFN" ]]; then
-    modelopts="networks/example_PFN.py"
-    batchopts="--batch-size 4096 --start-lr 2e-2"
-elif [[ "$model" == "PCNN" ]]; then
-    modelopts="networks/example_PCNN.py"
-    batchopts="--batch-size 4096 --start-lr 2e-2"
+shift 1
+if [[ $model == ParT* ]]; then
+  modelopts="networks/scalable_ParticleTransformer.py --use-amp"
+elif [[ $model == InT* ]]; then
+  modelopts="networks/scalable_InteractionTransformer.py --use-amp"
 else
-    echo "Invalid model $model!"
-    exit 1
+  echo "Invalid model $model!"
+  exit 1
 fi
 
 # "kin", "kinpid", "full"
-FEATURE_TYPE=$2
+FEATURE_TYPE=$1
+shift 1
 [[ -z ${FEATURE_TYPE} ]] && FEATURE_TYPE="full"
-
 if ! [[ "${FEATURE_TYPE}" =~ ^(full|kin|kinpid)$ ]]; then
     echo "Invalid feature type ${FEATURE_TYPE}!"
     exit 1
 fi
+
+# default settings
+nl=10
+nlcm=0.2
+esm=1
+pesm=1
+nnph=16
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --total-num-layers)
+      nl="$2"; shift 2;;
+    --num-cls-layers-mult)
+      nlcm="$2"; shift 2;;
+    --embedding-scale-mult)
+      esm="$2"; shift 2;;
+    --pair-embedding-scale-mult)
+      pesm="$2"; shift 2;;
+    --num-neurons-per-head)
+      nnph="$2"; shift 2;;
+    *)
+      break
+      ;;
+  esac
+done
 
 # currently only Pythia
 SAMPLE_TYPE=Pythia
@@ -87,8 +108,27 @@ $CMD \
     "ZJetsToNuNu:${DATADIR}/${SAMPLE_TYPE}/test_20M/ZJetsToNuNu_*.root" \
     --data-config data/JetClass/JetClass_${FEATURE_TYPE}.yaml --network-config $modelopts \
     --model-prefix training/JetClass/${SAMPLE_TYPE}/${FEATURE_TYPE}/${model}/{auto}${suffix}/net \
-    $dataopts $batchopts \
-    --samples-per-epoch ${samples_per_epoch} --samples-per-epoch-val ${samples_per_epoch_val} --num-epochs $epochs --gpus 0 \
-    --optimizer ranger --log logs/JetClass_${SAMPLE_TYPE}_${FEATURE_TYPE}_${model}_{auto}${suffix}.log --predict-output pred.root \
+    $dataopts \
+    --samples-per-epoch ${samples_per_epoch} \
+    --samples-per-epoch-val ${samples_per_epoch_val} \
+    --num-epochs $epochs \
+    --gpus 0 \
+    --optimizer $optimizer \
+    --batch-size $batch_size \
+    --start-lr $lr \
+    --log logs/JetClass_${SAMPLE_TYPE}_${FEATURE_TYPE}_${model}_{auto}${suffix}.log \
+    --predict-output pred.root \
     --tensorboard JetClass_${SAMPLE_TYPE}_${FEATURE_TYPE}_${model}${suffix} \
-    "${@:3}"
+    --network-option total_num_layers ${nl} \
+    --network-option num_cls_layers_mult ${nlcm} \
+    --network-option embedding_scale_mult ${esm} \
+    --network-option pair_embedding_scale_mult ${pesm} \
+    --network-option num_neurons_per_head ${nnph} \
+    "$@"
+
+mkdir -p tested_models
+latest=$(find training/JetClass/Pythia/full/${model} -maxdepth 1 -mindepth 1 -type d \
+         | sort \
+         | tail -n1)
+cp "${latest}/net_best_epoch_state.pt"             tested_models/${model}_best.pt
+cp "${latest}/net_epoch-$((epochs - 1))_state.pt"  tested_models/${model}_last.pt

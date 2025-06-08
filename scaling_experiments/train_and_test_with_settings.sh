@@ -91,8 +91,8 @@ mkdir -p tested_models
 latest=$(find training/TopLandscape/${model} -maxdepth 1 -mindepth 1 -type d \
          | sort \
          | tail -n1)
-cp "${latest}/net_best_epoch_state.pt" tested_models/${model}_best.pt
-cp "${latest}/net_epoch-19_state.pt"   tested_models/${model}_last.pt
+cp "${latest}/net_best_epoch_state.pt"             tested_models/${model}_best.pt
+cp "${latest}/net_epoch-$((epochs - 1))_state.pt"  tested_models/${model}_last.pt
 
 for wt_path in ${model}_best ${model}_last; do
     # evaluate on all 3 subsets
