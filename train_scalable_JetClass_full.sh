@@ -8,14 +8,14 @@ echo "args: $@"
 
 # set the dataset dir via `DATADIR_JetClass`
 DATADIR=${DATADIR_JetClass}
-[[ -z $DATADIR ]] && DATADIR='./datasets/JetClass-10M'
+[[ -z $DATADIR ]] && DATADIR='./datasets/JetClass-100M'
 
 # set a comment via `COMMENT`
 suffix=${COMMENT}
 
 optimizer="soap"
 batch_size=512
-lr="3e-3"
+lr="1e-3"
 
 # set the number of gpus for DDP training via `DDP_NGPUS`
 NGPUS=${DDP_NGPUS}
@@ -84,16 +84,16 @@ SAMPLE_TYPE=Pythia
 
 $CMD \
     --data-train \
-    "HToBB:${DATADIR}/${SAMPLE_TYPE}/train_10M/HToBB_*.root" \
-    "HToCC:${DATADIR}/${SAMPLE_TYPE}/train_10M/HToCC_*.root" \
-    "HToGG:${DATADIR}/${SAMPLE_TYPE}/train_10M/HToGG_*.root" \
-    "HToWW2Q1L:${DATADIR}/${SAMPLE_TYPE}/train_10M/HToWW2Q1L_*.root" \
-    "HToWW4Q:${DATADIR}/${SAMPLE_TYPE}/train_10M/HToWW4Q_*.root" \
-    "TTBar:${DATADIR}/${SAMPLE_TYPE}/train_10M/TTBar_*.root" \
-    "TTBarLep:${DATADIR}/${SAMPLE_TYPE}/train_10M/TTBarLep_*.root" \
-    "WToQQ:${DATADIR}/${SAMPLE_TYPE}/train_10M/WToQQ_*.root" \
-    "ZToQQ:${DATADIR}/${SAMPLE_TYPE}/train_10M/ZToQQ_*.root" \
-    "ZJetsToNuNu:${DATADIR}/${SAMPLE_TYPE}/train_10M/ZJetsToNuNu_*.root" \
+    "HToBB:${DATADIR}/${SAMPLE_TYPE}/train_100M/HToBB_*.root" \
+    "HToCC:${DATADIR}/${SAMPLE_TYPE}/train_100M/HToCC_*.root" \
+    "HToGG:${DATADIR}/${SAMPLE_TYPE}/train_100M/HToGG_*.root" \
+    "HToWW2Q1L:${DATADIR}/${SAMPLE_TYPE}/train_100M/HToWW2Q1L_*.root" \
+    "HToWW4Q:${DATADIR}/${SAMPLE_TYPE}/train_100M/HToWW4Q_*.root" \
+    "TTBar:${DATADIR}/${SAMPLE_TYPE}/train_100M/TTBar_*.root" \
+    "TTBarLep:${DATADIR}/${SAMPLE_TYPE}/train_100M/TTBarLep_*.root" \
+    "WToQQ:${DATADIR}/${SAMPLE_TYPE}/train_100M/WToQQ_*.root" \
+    "ZToQQ:${DATADIR}/${SAMPLE_TYPE}/train_100M/ZToQQ_*.root" \
+    "ZJetsToNuNu:${DATADIR}/${SAMPLE_TYPE}/train_100M/ZJetsToNuNu_*.root" \
     --data-val "${DATADIR}/${SAMPLE_TYPE}/val_5M/*.root" \
     --data-test \
     "HToBB:${DATADIR}/${SAMPLE_TYPE}/test_20M/HToBB_*.root" \
@@ -113,6 +113,7 @@ $CMD \
     --samples-per-epoch-val ${samples_per_epoch_val} \
     --num-epochs $epochs \
     --gpus 0 \
+    --predict-gpus 0 \
     --optimizer $optimizer \
     --batch-size $batch_size \
     --start-lr $lr \
