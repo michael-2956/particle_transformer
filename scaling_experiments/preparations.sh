@@ -32,8 +32,12 @@ echo "export DATADIR_JetClass=" >> particle_transformer/env.sh
 echo "export DATADIR_TopLandscape=${dataset_path}" >> particle_transformer/env.sh
 echo "export DATADIR_QuarkGluon=" >> particle_transformer/env.sh
 
-chmod +x ./particle_transformer/sync_weaver.sh
-chmod +x ./particle_transformer/start_model.sh
+if [[ -e ./particle_transformer/sync_weaver.sh ]]; then
+  chmod +x ./particle_transformer/sync_weaver.sh
+fi
+if [[ -e ./particle_transformer/start_model.sh ]]; then
+  chmod +x ./particle_transformer/start_model.sh
+fi
 
 echo
 echo Ready to run!
